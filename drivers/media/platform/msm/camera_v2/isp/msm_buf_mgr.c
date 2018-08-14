@@ -90,7 +90,7 @@ struct msm_isp_bufq *msm_isp_get_bufq(
 	uint32_t bufq_index = bufq_handle & 0xFF;
 
 	if ((bufq_handle == 0) ||
-		(bufq_index > buf_mgr->num_buf_q))
+		(bufq_index >= buf_mgr->num_buf_q))
 		return NULL;
 
 	bufq = &buf_mgr->bufq[bufq_index];
@@ -258,7 +258,7 @@ static int msm_isp_map_buf(struct msm_isp_buf_mgr *buf_mgr,
 	int iommu_hdl;
 
 	if (!buf_mgr || !mapped_info) {
-		pr_err_ratelimited("%s: %d] NULL ptr buf_mgr %p mapped_info %p\n",
+		pr_err_ratelimited("%s: %d] NULL ptr buf_mgr %pK mapped_info %pK\n",
 			__func__, __LINE__, buf_mgr, mapped_info);
 		return -EINVAL;
 	}
